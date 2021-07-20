@@ -40,6 +40,7 @@ docker run -it -e MEROSS_EMAIL=example@gmail.com \
 |---|---|
 |  MEROSS_EMAIL | example@gmail.com  |
 | MEROSS_PASSWORD  | SuperStrong!  |
-|  TEAMS_WEBHOOK | https://webhook.site/c8966e4b-9072-4275-ab66-4c2bf12f60a2  |
+| MEROSS_DEVICE_NAME | Name of the Device set inside the Meross App, if there are multiple devices with the same, this app will use the first found  |
+| TEAMS_WEBHOOK | https://webhook.site/c8966e4b-9072-4275-ab66-4c2bf12f60a2  |
 | MESSAGE_START | Der Kaffee läuft ! Fertig in ca. 15 min. |
 | MESSAGE_END | Der Kaffee ist fertig ! Bitte neuen kochen, wenn er leer ist ! |

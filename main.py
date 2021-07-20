@@ -10,6 +10,7 @@ from meross_iot.manager import MerossManager
 
 EMAIL = os.environ.get('MEROSS_EMAIL') or "YOUR_MEROSS_MAIL"
 PASSWORD = os.environ.get('MEROSS_PASSWORD') or "YOUR_MEROSS_PW"
+DEVICENAME = os.environ.get('MEROSS_DEVICE_NAME') or "Kaffeemaschine"
 WEBHOOK = os.environ.get('TEAMS_WEBHOOK') or "YOUR_TEAMS_WEBHOOK"
 MESSAGESTART = os.environ.get('MESSAGE_START') or "Der Kaffee läuft ! Fertig in ca. 15 min."
 MESSAGEEND = os.environ.get('MESSAGE_END') or "Der Kaffee ist fertig ! Bitte neuen kochen, wenn er leer ist !"
@@ -27,8 +28,8 @@ async def main():
 
         # Retrieve all the devices that implement the electricity mixin
         await manager.async_device_discovery()
-        devs = manager.find_devices(device_class=ElectricityMixin)
-        # TODO: UUID des dev verwenden und nicht das erste gefundene.
+        devs = manager.find_devices(device_class=ElectricityMixin, device_name=DEVICENAME)
+
         if len(devs) < 1:
             print("No electricity-capable device found...")
         else:
