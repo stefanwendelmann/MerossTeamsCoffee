@@ -1,9 +1,14 @@
-TODO
+## TODO's / Ideas
+
+- Wann wurde Kaffee gekocht, in DB schreiben
+- Aktueller Status der Kaffeemaschnine in DB schreiben
+- Grafana Dashboard über die DB
 
 ## Build
 
 ```shell
-docker build -t itout/meross-teams-coffee:0.0.5 .
+docker build -t docker.itout.de/iot/meross-teams-coffee:1.0.0 .
+docker push docker.itout.de/iot/meross-teams-coffee:1.0.0
 ```
 
 ## Run
@@ -15,7 +20,7 @@ docker run --rm -e MEROSS_EMAIL=example@gmail.com \
 -e MEROSS_PASSWORD=StrongPw! \
 -e TEAMS_WEBHOOK=https://webhook.site/c8966e4b-9072-4275-ab66-4c2bf12f60a2 \
 -e MESSAGE_START=Test \
--e MESSAGE_END=Test2 itout/meross-teams-coffee:0.0.5
+-e MESSAGE_END=Test2 itout/meross-teams-coffee:1.0.0
 ```
 
 Server
@@ -25,7 +30,7 @@ docker run -it -e MEROSS_EMAIL=example@gmail.com \
 -e MEROSS_PASSWORD=StrongPw! \
 -e TEAMS_WEBHOOK=https://webhook.site/c8966e4b-9072-4275-ab66-4c2bf12f60a2 \
 -e MESSAGE_START=Test \
--e MESSAGE_END=Test2 itout/meross-teams-coffee:0.0.5
+-e MESSAGE_END=Test2 itout/meross-teams-coffee:1.0.0
 ```
 
 ## Environment Variables
