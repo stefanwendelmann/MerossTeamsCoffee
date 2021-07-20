@@ -11,6 +11,10 @@ docker build -t docker.itout.de/iot/meross-teams-coffee:1.0.0 .
 docker push docker.itout.de/iot/meross-teams-coffee:1.0.0
 ```
 
+## Update DB
+````shell
+alembic upgrade head
+````
 ## Run
 
 Test Local
