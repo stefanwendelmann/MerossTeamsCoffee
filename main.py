@@ -2,6 +2,7 @@ import asyncio
 import os
 from time import time, sleep
 import pymsteams
+import logging
 
 
 from meross_iot.controller.mixins.electricity import ElectricityMixin
@@ -14,6 +15,11 @@ DEVICENAME = os.environ.get('MEROSS_DEVICE_NAME') or "Kaffeemaschine"
 WEBHOOK = os.environ.get('TEAMS_WEBHOOK') or "YOUR_TEAMS_WEBHOOK"
 MESSAGESTART = os.environ.get('MESSAGE_START') or "Der Kaffee läuft ! Fertig in ca. 15 min."
 MESSAGEEND = os.environ.get('MESSAGE_END') or "Der Kaffee ist fertig ! Bitte neuen kochen, wenn er leer ist !"
+
+logging.basicConfig(
+    format='%(asctime)s %(levelname)-8s %(message)s',
+    level=logging.INFO,
+    datefmt='%Y-%m-%d %H:%M:%S')
 
 
 async def main():
@@ -31,7 +37,7 @@ async def main():
         devs = manager.find_devices(device_class=ElectricityMixin, device_name=DEVICENAME)
 
         if len(devs) < 1:
-            print("No electricity-capable device found...")
+            logging.ERROR("No electricity-capable device found...")
         else:
             dev = devs[0]
 
@@ -41,19 +47,19 @@ async def main():
 
             # Read the electricity power/voltage/current
             instant_consumption = await dev.async_get_instant_metrics()
-            print(f"Current consumption data: {instant_consumption}")
+            logging.INFO(f"Current consumption data: {instant_consumption}")
             if instant_consumption.power == 0.0:
-                print('Coffemachine is off')
+                logging.INFO('Coffemachine is off')
                 if coffeeStatus:
-                    print('Coffe is ready to drink')
+                    logging.INFO('Coffe is ready to drink')
                     myTeamsMessage = pymsteams.connectorcard(WEBHOOK)
                     myTeamsMessage.text(MESSAGEEND)
                     myTeamsMessage.send()
                 coffeeStatus = False
             else:
-                print('Coffee Machine is on')
+                logging.INFO('Coffee Machine is on')
                 if not coffeeStatus:
-                    print('Coffee just got turned on, will be ready in 15 min.')
+                    logging.INFO('Coffee just got turned on, will be ready in 15 min.')
                     myTeamsMessage = pymsteams.connectorcard(WEBHOOK)
                     myTeamsMessage.text(MESSAGESTART)
                     myTeamsMessage.send()
