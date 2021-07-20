@@ -1,5 +1,6 @@
 ## TODO's / Ideas
 
+- Festlegung des SmartPlug über eine eindeutige UUID
 - Wann wurde Kaffee gekocht, in DB schreiben
 - Aktueller Status der Kaffeemaschnine in DB schreiben
 - Grafana Dashboard über die DB
