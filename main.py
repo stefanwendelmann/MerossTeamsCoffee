@@ -43,7 +43,6 @@ async def main():
             logging.error("No electricity-capable device found...")
         else:
             dev = devs[0]
-
             # Update device status: this is needed only the very first time we play with this device (or if the
             #  connection goes down)
             await dev.async_update()
@@ -57,7 +56,7 @@ async def main():
                     logging.info('Coffe is ready to drink')
                     Session = sessionmaker(bind=engine)
                     session = Session()
-                    to_create = Brew(startOrStop=False, created_date=datetime.datetime.utcnow())
+                    to_create = Brew(startOrStop=False, created_date=instant_consumption.sample_timestamp)
                     session.add(to_create)
                     session.commit()
                     session.close()
@@ -71,7 +70,7 @@ async def main():
                     logging.info('Coffee just got turned on, will be ready in 15 min.')
                     Session = sessionmaker(bind=engine)
                     session = Session()
-                    to_create = Brew(startOrStop=True, created_date=datetime.datetime.utcnow())
+                    to_create = Brew(startOrStop=True, created_date=instant_consumption.sample_timestamp)
                     session.add(to_create)
                     session.commit()
                     session.close()
