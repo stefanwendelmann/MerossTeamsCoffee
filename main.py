@@ -21,6 +21,7 @@ WEBHOOK = os.environ.get('TEAMS_WEBHOOK') or "YOUR_TEAMS_WEBHOOK"
 MESSAGESTART = os.environ.get('MESSAGE_START') or "Der Kaffee läuft ! Fertig in ca. 15 min."
 MESSAGEEND = os.environ.get('MESSAGE_END') or "Der Kaffee ist fertig ! Bitte neuen kochen, wenn er leer ist !"
 SQLALCHEMY_DATABASE_URL = os.environ.get('SQLALCHEMY_DATABASE_URL') or "postgresql://postgres:coffee@localhost/coffee"
+WINDOWS = os.environ.get('OS_WINDOWS') == '1' or False
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
@@ -86,8 +87,9 @@ async def main():
 
 
 if __name__ == '__main__':
-    # On Windows + Python 3.8, you should uncomment the following
-    #asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+    # On Windows + Python 3.8
+    if WINDOWS:
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main())
     loop.close()
