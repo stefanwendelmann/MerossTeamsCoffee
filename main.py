@@ -1,4 +1,5 @@
 import asyncio
+import datetime
 import os
 from time import time, sleep
 import pymsteams
@@ -56,7 +57,7 @@ async def main():
                     logging.info('Coffe is ready to drink')
                     Session = sessionmaker(bind=engine)
                     session = Session()
-                    to_create = Brew(startOrStop=False)
+                    to_create = Brew(startOrStop=False, created_date=datetime.datetime.utcnow())
                     session.add(to_create)
                     session.commit()
                     session.close()
@@ -70,7 +71,7 @@ async def main():
                     logging.info('Coffee just got turned on, will be ready in 15 min.')
                     Session = sessionmaker(bind=engine)
                     session = Session()
-                    to_create = Brew(startOrStop=True)
+                    to_create = Brew(startOrStop=True, created_date=datetime.datetime.utcnow())
                     session.add(to_create)
                     session.commit()
                     session.close()
