@@ -125,6 +125,7 @@ alembic upgrade head
 
 ## ℹ TODO's / Ideas
 
+- Bring the bot to live, give some more infos about the start / end of his day/week
 - Grafana Dashboard über die DB
 
 Feel free to extend the list by adding issues.
